@@ -1,0 +1,11 @@
+Label,# Samples,Average,Median,90% Line,95% Line,99% Line,Min,Max,Error %,Throughput,Received KB/sec,Sent KB/sec
+S01_WikipediaAndroidSearch_T01_OpenedApp,25,312,289,509,519,605,170,605,0.000%,.20078,0.46,0.07
+S01_WikipediaAndroidSearch_T02_SearchE,25,411,391,514,524,536,248,536,0.000%,.20162,0.95,0.15
+S01_WikipediaAndroidSearch_T03_SearchEp,25,394,388,479,571,623,243,623,0.000%,.20167,0.95,0.15
+S01_WikipediaAndroidSearch_T04_SearchEpa,25,369,393,452,493,517,236,517,0.000%,.20190,0.94,0.15
+S01_WikipediaAndroidSearch_T05_SearchEpam,25,390,379,467,500,511,259,511,0.000%,.20159,0.84,0.15
+S01_WikipediaAndroidSearch_T06_ArticleSummary,25,85,71,131,141,144,48,144,0.000%,.20141,0.56,0.13
+S01_WikipediaAndroidSearch_T07_ArticleCategories,25,230,221,278,344,355,183,355,0.000%,.20060,0.28,0.11
+S01_WikipediaAndroidSearch_T08_ArticleMobileHtml,25,125,118,158,203,234,73,234,0.000%,.20168,8.77,0.14
+S01_WikipediaAndroidSearch_T09_ArticleThumbnails,25,212,259,279,293,293,123,293,0.000%,.20109,10.78,0.25
+TOTAL,225,281,278,469,509,571,48,623,0.000%,1.45640,19.70,1.04

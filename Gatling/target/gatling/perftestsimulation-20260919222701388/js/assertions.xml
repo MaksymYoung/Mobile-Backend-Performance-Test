@@ -1,0 +1,29 @@
+<testsuite name="simulations.PerfTestSimulation" tests="9" errors="0" failures="0" time="0">
+  <testcase name="001_AppBootstrap: 95th percentile of response time is less than or equal to 2500.0" status="true" time="0">
+  <system-out>001_AppBootstrap: 95th percentile of response time is less than or equal to 2500.0</system-out>
+</testcase>
+<testcase name="002_Search_e: 95th percentile of response time is less than or equal to 3000.0" status="true" time="0">
+  <system-out>002_Search_e: 95th percentile of response time is less than or equal to 3000.0</system-out>
+</testcase>
+<testcase name="003_Search_ep: 95th percentile of response time is less than or equal to 3000.0" status="true" time="0">
+  <system-out>003_Search_ep: 95th percentile of response time is less than or equal to 3000.0</system-out>
+</testcase>
+<testcase name="004_Search_epa: 95th percentile of response time is less than or equal to 3000.0" status="true" time="0">
+  <system-out>004_Search_epa: 95th percentile of response time is less than or equal to 3000.0</system-out>
+</testcase>
+<testcase name="005_Search_epam: 95th percentile of response time is less than or equal to 3000.0" status="true" time="0">
+  <system-out>005_Search_epam: 95th percentile of response time is less than or equal to 3000.0</system-out>
+</testcase>
+<testcase name="006_ArticleSummary: 95th percentile of response time is less than or equal to 2500.0" status="true" time="0">
+  <system-out>006_ArticleSummary: 95th percentile of response time is less than or equal to 2500.0</system-out>
+</testcase>
+<testcase name="007_ArticleCategories: 95th percentile of response time is less than or equal to 2500.0" status="true" time="0">
+  <system-out>007_ArticleCategories: 95th percentile of response time is less than or equal to 2500.0</system-out>
+</testcase>
+<testcase name="008_ArticleMobileHtml: 95th percentile of response time is less than or equal to 3000.0" status="true" time="0">
+  <system-out>008_ArticleMobileHtml: 95th percentile of response time is less than or equal to 3000.0</system-out>
+</testcase>
+<testcase name="009_ArticleThumbnails: 95th percentile of response time is less than or equal to 3000.0" status="true" time="0">
+  <system-out>009_ArticleThumbnails: 95th percentile of response time is less than or equal to 3000.0</system-out>
+</testcase>
+</testsuite>

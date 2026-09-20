@@ -1,0 +1,6 @@
+Gatling/target/generated-test-sources
+Gatling/target/maven-status
+Gatling/target/test-classes
+Gatling/.mvn/wrapper/*.jar
+Gatling/mvnw
+.idea/
