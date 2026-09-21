@@ -25,11 +25,11 @@ public class BaseHelpers {
             .userAgentHeader(WIKIPEDIA_APP_USER_AGENT)
             .disableCaching();
 
-    public static final int MIN_THINK_TIME_SECONDS = Integer.parseInt(
-            System.getProperty("MIN_THINK_TIME_SECONDS", "2"));
+    public static final int SEARCH_KEYSTROKE_THINK_TIME_SECONDS = Integer.parseInt(
+            System.getProperty("SEARCH_KEYSTROKE_THINK_TIME_SECONDS", "1"));
 
-    public static final int MAX_THINK_TIME_SECONDS = Integer.parseInt(
-            System.getProperty("MAX_THINK_TIME_SECONDS", "4"));
+    public static final int SEARCH_RESULT_REVIEW_THINK_TIME_SECONDS = Integer.parseInt(
+            System.getProperty("SEARCH_RESULT_REVIEW_THINK_TIME_SECONDS", "2"));
 
     public static final int OPEN_USERS = Integer.parseInt(
             System.getProperty("OPEN_USERS", "50"));

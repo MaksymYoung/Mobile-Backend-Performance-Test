@@ -14,10 +14,10 @@ import java.util.List;
 public class PerfTestSimulation extends Simulation {
     {
         // Run command:
-        // .\mvnw.cmd gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DOPEN_USERS=30 -DLOAD_MODEL=open -DRAMP_UP_PERIOD_SECONDS=180
-        // .\mvnw.cmd gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DOPEN_USERS=30 -DLOAD_MODEL=open -DASSERTION_TYPE=smokeTest -DRAMP_UP_PERIOD_SECONDS=180
-        // .\mvnw.cmd gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DCONCURRENT_USERS=6 -DLOAD_MODEL=closed
-        // .\mvnw.cmd gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DCONCURRENT_USERS=6 -DLOAD_MODEL=closed -DASSERTION_TYPE=smokeTest
+        // mvn gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DOPEN_USERS=30 -DLOAD_MODEL=open -DRAMP_UP_PERIOD_SECONDS=180
+        // mvn gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DOPEN_USERS=30 -DLOAD_MODEL=open -DASSERTION_TYPE=smokeTest -DRAMP_UP_PERIOD_SECONDS=180
+        // mvn gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DCONCURRENT_USERS=5 -DLOAD_MODEL=closed -DRAMP_UP_PERIOD_SECONDS=120
+        // mvn gatling:test "-Dgatling.simulationClass=simulations.PerfTestSimulation" -DCONCURRENT_USERS=1 -DLOAD_MODEL=closed -DRAMP_UP_PERIOD_SECONDS=30 -DASSERTION_TYPE=smokeTest
         setUp(
                 injection()
         )

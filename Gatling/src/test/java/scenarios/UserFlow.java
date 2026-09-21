@@ -12,22 +12,31 @@ public class UserFlow {
 
     public static ScenarioBuilder userJourney() {
         return scenario("Wikipedia Android Search Journey")
-                .exec(flushHttpCache())
-                .exec(flushCookieJar())
+                .exec(flushHttpCache(), flushCookieJar())
                 .exitBlockOnFail().on(
-                        page(Navigation.loadNamespaces("001_AppBootstrap"))
-                                .exec(page(Navigation.searchPrefix("002_Search_e", SEARCH_TERM.substring(0, 1))))
-                                .exec(page(Navigation.searchPrefix("003_Search_ep", SEARCH_TERM.substring(0, 2))))
-                                .exec(page(Navigation.searchPrefix("004_Search_epa", SEARCH_TERM.substring(0, 3))))
-                                .exec(page(Navigation.searchPrefix("005_Search_epam", SEARCH_TERM)))
-                                .exec(page(Navigation.loadArticleSummary("006_ArticleSummary")))
-                                .exec(page(Navigation.loadArticleCategories("007_ArticleCategories")))
-                                .exec(page(Navigation.loadArticleMobileHtml("008_ArticleMobileHtml")))
-                                .exec(page(Navigation.loadArticleThumbnails("009_ArticleThumbnails")))
+                        exec(
+                                Navigation.loadNamespaces("001_AppBootstrap"),
+                                search(Navigation.searchPrefix("002_Search_e", searchTermPrefix(1))),
+                                search(Navigation.searchPrefix("003_Search_ep", searchTermPrefix(2))),
+                                search(Navigation.searchPrefix("004_Search_epa", searchTermPrefix(3))),
+                                openResult(Navigation.searchPrefix("005_Search_epam", SEARCH_TERM)),
+                                Navigation.loadArticleSummary("006_ArticleSummary"),
+                                Navigation.loadArticleCategories("007_ArticleCategories"),
+                                Navigation.loadArticleMobileHtml("008_ArticleMobileHtml"),
+                                Navigation.loadArticleThumbnails("009_ArticleThumbnails")
+                        )
                 );
     }
 
-    private static ChainBuilder page(ChainBuilder request) {
-        return exec(request).pause(MIN_THINK_TIME_SECONDS, MAX_THINK_TIME_SECONDS);
+    private static ChainBuilder search(ChainBuilder request) {
+        return request.pause(SEARCH_KEYSTROKE_THINK_TIME_SECONDS);
+    }
+
+    private static ChainBuilder openResult(ChainBuilder request) {
+        return request.pause(SEARCH_RESULT_REVIEW_THINK_TIME_SECONDS);
+    }
+
+    private static String searchTermPrefix(int length) {
+        return SEARCH_TERM.substring(0, Math.min(length, SEARCH_TERM.length()));
     }
 }
