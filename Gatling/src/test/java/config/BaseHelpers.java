@@ -1,7 +1,11 @@
 package config;
 
+import io.gatling.javaapi.core.PauseType;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
+import java.time.Duration;
+
+import static io.gatling.javaapi.core.CoreDsl.normalPausesWithStdDevDuration;
 import static io.gatling.javaapi.http.HttpDsl.http;
 
 public class BaseHelpers {
@@ -25,11 +29,19 @@ public class BaseHelpers {
             .userAgentHeader(WIKIPEDIA_APP_USER_AGENT)
             .disableCaching();
 
-    public static final int SEARCH_KEYSTROKE_THINK_TIME_SECONDS = Integer.parseInt(
-            System.getProperty("SEARCH_KEYSTROKE_THINK_TIME_SECONDS", "1"));
+    public static final Duration SEARCH_KEYSTROKE_THINK_TIME = Duration.ofSeconds(Integer.parseInt(
+            System.getProperty("SEARCH_KEYSTROKE_THINK_TIME_SECONDS", "1")));
 
-    public static final int SEARCH_RESULT_REVIEW_THINK_TIME_SECONDS = Integer.parseInt(
-            System.getProperty("SEARCH_RESULT_REVIEW_THINK_TIME_SECONDS", "2"));
+    public static final PauseType SEARCH_KEYSTROKE_THINK_TIME_DISTRIBUTION = normalPausesWithStdDevDuration(
+            Duration.ofMillis(Integer.parseInt(
+                    System.getProperty("SEARCH_KEYSTROKE_THINK_TIME_STDDEV_MILLISECONDS", "300"))));
+
+    public static final Duration SEARCH_RESULT_REVIEW_THINK_TIME = Duration.ofSeconds(Integer.parseInt(
+            System.getProperty("SEARCH_RESULT_REVIEW_THINK_TIME_SECONDS", "2")));
+
+    public static final PauseType SEARCH_RESULT_REVIEW_THINK_TIME_DISTRIBUTION = normalPausesWithStdDevDuration(
+            Duration.ofMillis(Integer.parseInt(
+                    System.getProperty("SEARCH_RESULT_REVIEW_THINK_TIME_STDDEV_MILLISECONDS", "500"))));
 
     public static final int OPEN_USERS = Integer.parseInt(
             System.getProperty("OPEN_USERS", "50"));

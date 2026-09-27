@@ -6,8 +6,6 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="ViewResultsTree" enabled="false">
@@ -88,7 +86,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="rampup" elementType="Argument">
             <stringProp name="Argument.name">rampup</stringProp>
-            <stringProp name="Argument.value">${__P(rampup,1)}</stringProp>
+            <stringProp name="Argument.value">${__P(rampup,10)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="loops" elementType="Argument">
@@ -309,7 +307,7 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults">
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
         <stringProp name="HTTPSampler.connect_timeout">${connect_timeout}</stringProp>
         <stringProp name="HTTPSampler.response_timeout">${response_timeout}</stringProp>
         <stringProp name="HTTPSampler.port">${port}</stringProp>
@@ -321,7 +319,7 @@
         <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
       </ConfigTestElement>
       <hashTree/>
-      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Wikipedia Android Defaults">
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Wikipedia Android Defaults" enabled="true">
         <collectionProp name="HeaderManager.headers">
           <elementProp name="User-Agent" elementType="Header">
             <stringProp name="Header.name">User-Agent</stringProp>
@@ -338,19 +336,37 @@
         </collectionProp>
       </HeaderManager>
       <hashTree/>
-      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
         <collectionProp name="CookieManager.cookies"/>
         <boolProp name="CookieManager.clearEachIteration">true</boolProp>
         <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
       </CookieManager>
       <hashTree/>
-      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager">
+      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
         <boolProp name="clearEachIteration">true</boolProp>
         <boolProp name="useExpires">false</boolProp>
         <boolProp name="CacheManager.controlledByThread">false</boolProp>
       </CacheManager>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="S01_WikipediaAndroidSearch">
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Think Time Fragment" enabled="true"/>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Think Time Simple Controller" enabled="true"/>
+        <hashTree>
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Think Time Flow Control" enabled="true">
+            <intProp name="ActionProcessor.action">1</intProp>
+            <intProp name="ActionProcessor.target">0</intProp>
+            <stringProp name="ActionProcessor.duration">0</stringProp>
+          </TestAction>
+          <hashTree>
+            <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Think Time">
+              <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
+              <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
+            </GaussianRandomTimer>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="S01_WikipediaAndroidSearch" enabled="true">
         <stringProp name="ThreadGroup.num_threads">${threads}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${rampup}</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -361,12 +377,12 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T01_OpenedApp">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T01_OpenedApp" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_siteinfo">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_siteinfo" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -381,7 +397,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_siteinfo status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_siteinfo status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
@@ -391,7 +407,7 @@
               <intProp name="Assertion.test_type">8</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert namespaces JSON exists">
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert namespaces JSON exists" enabled="true">
               <stringProp name="JSON_PATH">${namespaces_json_path}</stringProp>
               <stringProp name="EXPECTED_VALUE"></stringProp>
               <boolProp name="JSONVALIDATION">false</boolProp>
@@ -402,24 +418,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T01_ThinkTimer Flow Control">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T01_ThinkTimer">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T02_SearchE">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T01_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T02_SearchE" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_e">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_e" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -434,7 +447,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_prefix_search_e status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_prefix_search_e status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
@@ -444,7 +457,7 @@
               <intProp name="Assertion.test_type">8</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert pages JSON exists">
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert pages JSON exists" enabled="true">
               <stringProp name="JSON_PATH">${pages_json_path}</stringProp>
               <stringProp name="EXPECTED_VALUE"></stringProp>
               <boolProp name="JSONVALIDATION">false</boolProp>
@@ -455,24 +468,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T02_ThinkTimer Flow Control">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T02_ThinkTimer">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T03_SearchEp">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T02_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T03_SearchEp" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_ep">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_ep" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -487,7 +497,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_prefix_search_ep status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_prefix_search_ep status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
@@ -497,7 +507,7 @@
               <intProp name="Assertion.test_type">8</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert pages JSON exists">
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert pages JSON exists" enabled="true">
               <stringProp name="JSON_PATH">${pages_json_path}</stringProp>
               <stringProp name="EXPECTED_VALUE"></stringProp>
               <boolProp name="JSONVALIDATION">false</boolProp>
@@ -508,24 +518,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T03_ThinkTimer Flow Control">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T03_ThinkTimer">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T04_SearchEpa">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T03_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T04_SearchEpa" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_epa">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_epa" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -561,24 +568,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T04_ThinkTimer Flow Control">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T04_ThinkTimer">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T05_SearchEpam">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T04_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T05_SearchEpam" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_epam">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_epam" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -614,24 +618,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T05_ThinkTimer Flow Control">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T05_ThinkTimer" enabled="true">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T06_ArticleSummary">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T05_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T06_ArticleSummary" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="rest_page_summary">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="rest_page_summary" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -646,7 +647,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="x-analytics" elementType="Header">
                   <stringProp name="Header.name">x-analytics</stringProp>
@@ -667,7 +668,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert rest_page_summary status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert rest_page_summary status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
@@ -679,24 +680,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T06_ThinkTimer Flow Control">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T06_ThinkTimer">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T07_ArticleCategories">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T06_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T07_ArticleCategories" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_article_categories">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_article_categories" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -711,7 +709,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_article_categories status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert w_api_article_categories status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
@@ -721,7 +719,7 @@
               <intProp name="Assertion.test_type">8</intProp>
             </ResponseAssertion>
             <hashTree/>
-            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert article title JSON">
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert article title JSON" enabled="true">
               <stringProp name="JSON_PATH">${article_title_json_path}</stringProp>
               <stringProp name="EXPECTED_VALUE">${article_title}</stringProp>
               <boolProp name="JSONVALIDATION">true</boolProp>
@@ -732,24 +730,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T07_ThinkTimer Flow Control" enabled="true">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T07_ThinkTimer" enabled="true">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T08_ArticleMobileHtml">
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T07_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T08_ArticleMobileHtml" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="rest_page_mobile_html">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="rest_page_mobile_html" enabled="true">
             <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -764,7 +759,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
                   <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
@@ -789,7 +784,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert rest_page_mobile_html status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert rest_page_mobile_html status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
@@ -801,24 +796,21 @@
             <hashTree/>
           </hashTree>
         </hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="S01_WikipediaAndroidSearch_T08_ThinkTimer Flow Control" enabled="true">
-          <intProp name="ActionProcessor.action">1</intProp>
-          <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">0</stringProp>
-        </TestAction>
-        <hashTree>
-          <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="S01_WikipediaAndroidSearch_T08_ThinkTimer">
-            <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
-            <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
-          </UniformRandomTimer>
-          <hashTree/>
-        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T08_ThinkTimer" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="2134100853">Think Time Fragment</stringProp>
+            <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
         <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="S01_WikipediaAndroidSearch_T09_ArticleThumbnails" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="thumb_question_book">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="thumb_question_book" enabled="true">
             <stringProp name="HTTPSampler.domain">${thumb_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -833,7 +825,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Accept" elementType="Header">
                   <stringProp name="Header.name">Accept</stringProp>
@@ -854,7 +846,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert thumb_question_book status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert thumb_question_book status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
@@ -865,7 +857,7 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="thumb_thebes_stater">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="thumb_thebes_stater" enabled="true">
             <stringProp name="HTTPSampler.domain">${thumb_host}</stringProp>
             <stringProp name="HTTPSampler.port">${port}</stringProp>
             <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
@@ -880,7 +872,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Accept" elementType="Header">
                   <stringProp name="Header.name">Accept</stringProp>
@@ -901,7 +893,7 @@
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert thumb_thebes_stater status OK">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert thumb_thebes_stater status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>

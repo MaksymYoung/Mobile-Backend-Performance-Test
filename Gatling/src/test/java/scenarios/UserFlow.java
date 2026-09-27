@@ -29,11 +29,11 @@ public class UserFlow {
     }
 
     private static ChainBuilder search(ChainBuilder request) {
-        return request.pause(SEARCH_KEYSTROKE_THINK_TIME_SECONDS);
+        return request.pause(SEARCH_KEYSTROKE_THINK_TIME, SEARCH_KEYSTROKE_THINK_TIME_DISTRIBUTION);
     }
 
     private static ChainBuilder openResult(ChainBuilder request) {
-        return request.pause(SEARCH_RESULT_REVIEW_THINK_TIME_SECONDS);
+        return request.pause(SEARCH_RESULT_REVIEW_THINK_TIME, SEARCH_RESULT_REVIEW_THINK_TIME_DISTRIBUTION);
     }
 
     private static String searchTermPrefix(int length) {
