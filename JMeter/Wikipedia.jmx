@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Performance Essentials - Wikipedia Android Emulator HAR">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname=" Wikipedia Android Emulator">
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="ViewResultsTree" enabled="false">
@@ -82,7 +84,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="rampup" elementType="Argument">
             <stringProp name="Argument.name">rampup</stringProp>
@@ -144,19 +146,9 @@
             <stringProp name="Argument.value">${__P(wiki_host,en.wikipedia.org)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="thumb_host" elementType="Argument">
-            <stringProp name="Argument.name">thumb_host</stringProp>
-            <stringProp name="Argument.value">${__P(thumb_host,thumb.wikimedia.org)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
           <elementProp name="language" elementType="Argument">
             <stringProp name="Argument.name">language</stringProp>
             <stringProp name="Argument.value">${__P(language,en)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="article_title" elementType="Argument">
-            <stringProp name="Argument.name">article_title</stringProp>
-            <stringProp name="Argument.value">${__P(article_title,Epaminondas)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="search_prefix_1" elementType="Argument">
@@ -201,7 +193,7 @@
           </elementProp>
           <elementProp name="image_accept" elementType="Argument">
             <stringProp name="Argument.name">image_accept</stringProp>
-            <stringProp name="Argument.value">image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8</stringProp>
+            <stringProp name="Argument.value">${__P(image_accept,image/avif\,image/webp\,image/apng\,image/svg+xml\,image/*\,*/*;q=0.8)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="analytics_preview" elementType="Argument">
@@ -237,16 +229,6 @@
           <elementProp name="mobile_html_path" elementType="Argument">
             <stringProp name="Argument.name">mobile_html_path</stringProp>
             <stringProp name="Argument.value">${__P(mobile_html_path,/api/rest_v1/page/mobile-html)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="thumbnail_question_path" elementType="Argument">
-            <stringProp name="Argument.name">thumbnail_question_path</stringProp>
-            <stringProp name="Argument.value">${__P(thumbnail_question_path,/wikipedia/en/thumb/9/99/Question_book-new.svg/120px-Question_book-new.svg.png)}</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-          <elementProp name="thumbnail_thebes_path" elementType="Argument">
-            <stringProp name="Argument.name">thumbnail_thebes_path</stringProp>
-            <stringProp name="Argument.value">${__P(thumbnail_thebes_path,/wikipedia/commons/thumb/9/9b/Thebes%2C_Stater%2C_c.364-362_BC%2C_HGC_1333.jpg/500px-Thebes%2C_Stater%2C_c.364-362_BC%2C_HGC_1333.jpg)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="siteinfo_query" elementType="Argument">
@@ -299,9 +281,9 @@
             <stringProp name="Argument.value">${__P(article_title_json_path,$.query.pages[0].title)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
-          <elementProp name="{port}" elementType="Argument">
-            <stringProp name="Argument.name">{port}</stringProp>
-            <stringProp name="Argument.value">${__P(port,8888)}</stringProp>
+          <elementProp name="port" elementType="Argument">
+            <stringProp name="Argument.name">port</stringProp>
+            <stringProp name="Argument.value">${__P(port,443)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -310,6 +292,7 @@
       <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
         <stringProp name="HTTPSampler.connect_timeout">${connect_timeout}</stringProp>
         <stringProp name="HTTPSampler.response_timeout">${response_timeout}</stringProp>
+        <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
         <stringProp name="HTTPSampler.port">${port}</stringProp>
         <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
         <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
@@ -358,7 +341,7 @@
             <stringProp name="ActionProcessor.duration">0</stringProp>
           </TestAction>
           <hashTree>
-            <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Think Time">
+            <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Think Time" enabled="true">
               <stringProp name="ConstantTimer.delay">${think_time_center}</stringProp>
               <stringProp name="RandomTimer.range">${think_time_spread}</stringProp>
             </GaussianRandomTimer>
@@ -383,10 +366,6 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_siteinfo" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
             <stringProp name="HTTPSampler.path">${api_query_path}?${siteinfo_query}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
@@ -421,7 +400,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T01_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -433,10 +412,6 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_e" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
             <stringProp name="HTTPSampler.path">${api_query_path}?${prefix_search_query_prefix}${search_prefix_1}${prefix_search_query_suffix}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
@@ -471,7 +446,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T02_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -483,10 +458,6 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_ep" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
             <stringProp name="HTTPSampler.path">${api_query_path}?${prefix_search_query_prefix}${search_prefix_2}${prefix_search_query_suffix}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
@@ -521,7 +492,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T03_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -533,10 +504,6 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_epa" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
             <stringProp name="HTTPSampler.path">${api_query_path}?${prefix_search_query_prefix}${search_prefix_3}${prefix_search_query_suffix}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
@@ -571,7 +538,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T04_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -583,10 +550,6 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_prefix_search_epam" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
             <stringProp name="HTTPSampler.path">${api_query_path}?${prefix_search_query_prefix}${search_term}${prefix_search_query_suffix}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
@@ -607,6 +570,20 @@
               <intProp name="Assertion.test_type">8</intProp>
             </ResponseAssertion>
             <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract article title" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">extracted_title</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.query.pages[0].title</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="Extract thumbnail source" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">extracted_thumbnail_source</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.query.pages[0].thumbnail.source</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">NOT_FOUND</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
             <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert pages JSON exists" enabled="true">
               <stringProp name="JSON_PATH">${pages_json_path}</stringProp>
               <stringProp name="EXPECTED_VALUE"></stringProp>
@@ -621,7 +598,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T05_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -633,11 +610,7 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="rest_page_summary" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
-            <stringProp name="HTTPSampler.path">${summary_path}/${article_title}</stringProp>
+            <stringProp name="HTTPSampler.path">${summary_path}/${extracted_title}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -647,12 +620,8 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Summary" enabled="true">
               <collectionProp name="HeaderManager.headers">
-                <elementProp name="x-analytics" elementType="Header">
-                  <stringProp name="Header.name">x-analytics</stringProp>
-                  <stringProp name="Header.value">${analytics_preview}</stringProp>
-                </elementProp>
                 <elementProp name="Accept" elementType="Header">
                   <stringProp name="Header.name">Accept</stringProp>
                   <stringProp name="Header.value">${summary_accept}</stringProp>
@@ -663,7 +632,11 @@
                 </elementProp>
                 <elementProp name="x-offline-title" elementType="Header">
                   <stringProp name="Header.name">x-offline-title</stringProp>
-                  <stringProp name="Header.value">${article_title}</stringProp>
+                  <stringProp name="Header.value">${extracted_title}</stringProp>
+                </elementProp>
+                <elementProp name="x-analytics" elementType="Header">
+                  <stringProp name="Header.name">x-analytics</stringProp>
+                  <stringProp name="Header.value">${analytics_preview}</stringProp>
                 </elementProp>
               </collectionProp>
             </HeaderManager>
@@ -683,7 +656,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T06_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -695,11 +668,7 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="w_api_article_categories" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
-            <stringProp name="HTTPSampler.path">${api_query_path}?${categories_query_prefix}${article_title}</stringProp>
+            <stringProp name="HTTPSampler.path">${api_query_path}?${categories_query_prefix}${extracted_title}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -721,7 +690,7 @@
             <hashTree/>
             <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert article title JSON" enabled="true">
               <stringProp name="JSON_PATH">${article_title_json_path}</stringProp>
-              <stringProp name="EXPECTED_VALUE">${article_title}</stringProp>
+              <stringProp name="EXPECTED_VALUE">${extracted_title}</stringProp>
               <boolProp name="JSONVALIDATION">true</boolProp>
               <boolProp name="EXPECT_NULL">false</boolProp>
               <boolProp name="INVERT">false</boolProp>
@@ -733,7 +702,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T07_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -745,11 +714,7 @@
         </TransactionController>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="rest_page_mobile_html" enabled="true">
-            <stringProp name="HTTPSampler.domain">${wiki_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
-            <stringProp name="HTTPSampler.path">${mobile_html_path}/${article_title}</stringProp>
+            <stringProp name="HTTPSampler.path">${mobile_html_path}/${extracted_title}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -759,15 +724,15 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Mobile HTML" enabled="true">
               <collectionProp name="HeaderManager.headers">
-                <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
-                  <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
-                  <stringProp name="Header.value">${upgrade_insecure_requests}</stringProp>
-                </elementProp>
                 <elementProp name="Accept" elementType="Header">
                   <stringProp name="Header.name">Accept</stringProp>
                   <stringProp name="Header.value">${mobile_html_accept}</stringProp>
+                </elementProp>
+                <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
+                  <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
+                  <stringProp name="Header.value">${upgrade_insecure_requests}</stringProp>
                 </elementProp>
                 <elementProp name="x-offline-lang" elementType="Header">
                   <stringProp name="Header.name">x-offline-lang</stringProp>
@@ -775,7 +740,7 @@
                 </elementProp>
                 <elementProp name="x-offline-title" elementType="Header">
                   <stringProp name="Header.name">x-offline-title</stringProp>
-                  <stringProp name="Header.value">${article_title}</stringProp>
+                  <stringProp name="Header.value">${extracted_title}</stringProp>
                 </elementProp>
                 <elementProp name="x-analytics" elementType="Header">
                   <stringProp name="Header.name">x-analytics</stringProp>
@@ -799,7 +764,7 @@
         <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="S01_WikipediaAndroidSearch_T08_ThinkTimer" enabled="true">
           <collectionProp name="ModuleController.node_path">
             <stringProp name="764597751">Test Plan</stringProp>
-            <stringProp name="-74706650">Performance Essentials - Wikipedia Android Emulator HAR</stringProp>
+            <stringProp name="52434543"> Wikipedia Android Emulator</stringProp>
             <stringProp name="2134100853">Think Time Fragment</stringProp>
             <stringProp name="-1117957275">Think Time Simple Controller</stringProp>
           </collectionProp>
@@ -810,12 +775,9 @@
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="thumb_question_book" enabled="true">
-            <stringProp name="HTTPSampler.domain">${thumb_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
-            <stringProp name="HTTPSampler.path">${thumbnail_question_path}?utm_source=${utm_source_host}&amp;amp;utm_campaign=${utm_campaign}&amp;amp;utm_content=${utm_content}</stringProp>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="extracted_thumbnail" enabled="true">
+            <stringProp name="HTTPSampler.domain">${__groovy(new java.net.URL(vars.get(&apos;extracted_thumbnail_source&apos;)).getHost(),)}</stringProp>
+            <stringProp name="HTTPSampler.path">${__groovy(new java.net.URL(vars.get(&apos;extracted_thumbnail_source&apos;)).getPath(),)}?utm_source=${utm_source_host}&amp;utm_campaign=${utm_campaign}&amp;utm_content=${utm_content}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -825,7 +787,7 @@
             </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager - Thumbnail" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="Accept" elementType="Header">
                   <stringProp name="Header.name">Accept</stringProp>
@@ -841,59 +803,12 @@
                 </elementProp>
                 <elementProp name="x-offline-title" elementType="Header">
                   <stringProp name="Header.name">x-offline-title</stringProp>
-                  <stringProp name="Header.value">${article_title}</stringProp>
+                  <stringProp name="Header.value">${extracted_title}</stringProp>
                 </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert thumb_question_book status OK" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="-1381332885">${status_ok}</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
-              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
-              <boolProp name="Assertion.assume_success">false</boolProp>
-              <intProp name="Assertion.test_type">8</intProp>
-            </ResponseAssertion>
-            <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="thumb_thebes_stater" enabled="true">
-            <stringProp name="HTTPSampler.domain">${thumb_host}</stringProp>
-            <stringProp name="HTTPSampler.port">${port}</stringProp>
-            <stringProp name="HTTPSampler.protocol">${protocol}</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">${content_encoding}</stringProp>
-            <stringProp name="HTTPSampler.path">${thumbnail_thebes_path}?utm_source=${utm_source_host}&amp;amp;utm_campaign=${utm_campaign}&amp;amp;utm_content=${utm_content}</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <stringProp name="HTTPSampler.method">${http_method_get}</stringProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-              <collectionProp name="Arguments.arguments"/>
-            </elementProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-              <collectionProp name="HeaderManager.headers">
-                <elementProp name="Accept" elementType="Header">
-                  <stringProp name="Header.name">Accept</stringProp>
-                  <stringProp name="Header.value">${image_accept}</stringProp>
-                </elementProp>
-                <elementProp name="Referer" elementType="Header">
-                  <stringProp name="Header.name">Referer</stringProp>
-                  <stringProp name="Header.value">${protocol}://${wiki_host}/</stringProp>
-                </elementProp>
-                <elementProp name="x-offline-lang" elementType="Header">
-                  <stringProp name="Header.name">x-offline-lang</stringProp>
-                  <stringProp name="Header.value">${offline_language}</stringProp>
-                </elementProp>
-                <elementProp name="x-offline-title" elementType="Header">
-                  <stringProp name="Header.name">x-offline-title</stringProp>
-                  <stringProp name="Header.value">${article_title}</stringProp>
-                </elementProp>
-              </collectionProp>
-            </HeaderManager>
-            <hashTree/>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert thumb_thebes_stater status OK" enabled="true">
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert extracted_thumbnail status OK" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="-1381332885">${status_ok}</stringProp>
               </collectionProp>
